@@ -28,7 +28,7 @@ defmodule Scrivener.HTML.SEOTest do
 
   describe "#header_links" do
     test "on the first page" do
-      assert header_links(%Page{total_pages: 10, page_number: 1}) ==
+      assert header_links(%Page{total_pages: 10, page_number: 1}) |> Phoenix.HTML.safe_to_string() ==
                {:safe,
                 [
                   60,
@@ -41,10 +41,12 @@ defmodule Scrivener.HTML.SEOTest do
                   "link",
                   62
                 ]}
+               |> Phoenix.HTML.safe_to_string()
     end
 
     test "on the last page" do
-      assert header_links(%Page{total_pages: 10, page_number: 10}) ==
+      assert header_links(%Page{total_pages: 10, page_number: 10})
+             |> Phoenix.HTML.safe_to_string() ==
                {:safe,
                 [
                   60,
@@ -57,10 +59,11 @@ defmodule Scrivener.HTML.SEOTest do
                   "link",
                   62
                 ]}
+               |> Phoenix.HTML.safe_to_string()
     end
 
     test "on a middle page" do
-      assert header_links(%Page{total_pages: 10, page_number: 5}) ==
+      assert header_links(%Page{total_pages: 10, page_number: 5}) |> Phoenix.HTML.safe_to_string() ==
                {:safe,
                 [
                   [
@@ -87,6 +90,7 @@ defmodule Scrivener.HTML.SEOTest do
                     62
                   ]
                 ]}
+               |> Phoenix.HTML.safe_to_string()
     end
   end
 end
